@@ -6,5 +6,17 @@ export interface ILoginRequest {
 }
 
 export interface ILoginResponse {
-    accessToken: string
+    accessToken: string,
+    id: number,
+    refreshToken: string
+}
+
+export interface IProfileResponce {
+  id: number,
+  name: string,
+  surname: string,
+  managerId: number,
+  expertId: number,
+  dateOfNextAssessment: string,
+  login: string
 }

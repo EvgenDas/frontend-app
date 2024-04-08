@@ -3,19 +3,29 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 export interface AuthState {
   authData: {
     accessToken: string | null,
+    id: number | null,
+    refreshToken: string | null,
     isLoading: boolean,
     error:  string | null
   },
   profileData: {
-    profile: string | null,
+    profile: string[] | null,
     isLoading: boolean,
     error:  string | null
   }
 }
 
+export interface ProfilePayload {
+  id: number,
+  accessToken: string,
+  refreshToken: string
+}
+
 const initialState: AuthState = {
   authData: {
     accessToken: null,
+    id: null,
+    refreshToken: null,
     isLoading: false,
     error:  null,
   },
@@ -37,14 +47,21 @@ export const authReducer = createSlice({
         isLoading: true,
       }
     }),
-    loginSucess: (state, action: PayloadAction<string>): AuthState => ({
+
+    loginSucess: (state, action: PayloadAction<ProfilePayload>):
+    AuthState => ({
+      
       ...state,
       authData: {
         ...state.authData,
-        accessToken: action.payload,
+        accessToken: action.payload.accessToken,
+        id: action.payload.id,
+        refreshToken: action.payload.refreshToken,
         isLoading: false,
         error:  null,
       }
+    
+    
     }),
     loginFailure: (state, action: PayloadAction<string>): AuthState => ({
       ...state,
@@ -61,7 +78,7 @@ export const authReducer = createSlice({
         isLoading: true,
       }
     }),
-    loadProfileSucess: (state, action: PayloadAction<string>): AuthState => ({
+    loadProfileSucess: (state, action: PayloadAction<string[]>): AuthState => ({
       ...state,
       profileData: {
         ...state.profileData,
