@@ -1,7 +1,7 @@
 import { Dispatch } from "@reduxjs/toolkit"
 import api from "../../api"
 import { ILoginRequest , ILoginResponse} from "../../api/auth/types"
-import { loginStart, loginSucess, loginFailure, logoutSuccess, loadProfileStart, loadProfileSucess, loadProfileFailure } from "./authReducer"
+import { loginStart, loginSucess, loginFailure, logoutSuccess, loadProfileStart, loadProfileSucess, loadProfileFailure, loadAssessmentSucess} from "./authReducer"
 import { history } from '../../utils/history'
 import { store } from "..";
 import { isTokenExpired } from "../../utils/jwt"
@@ -24,7 +24,7 @@ export const loginUser =
 
         dispatch(loginSucess(input))
         dispatch(getProfile())
-        console.debug(res.data.id)
+        console.debug(res.data)
         
       } catch (e) {
         console.error(e)
@@ -53,12 +53,36 @@ export const getProfile = () =>
 
       
       const res = await api.auth.getProfile()
+      const input = {
+        id: res.data.id,
+        name: res.data.name,
+        surname: res.data.surname,
+        managerId: res.data.managerId,
+        expertId: res.data.expertId,
+        dateOfNextAssessment: res.data.dateOfNextAssessment,
+        login: res.data.login
+      };
 
-      dispatch(loadProfileSucess(res.data[0]))
+      dispatch(loadProfileSucess(input))
     } catch (e) {
       console.error(e)
 
       dispatch(loadProfileFailure(e.message))
+    }
+  }
+
+  export const getAssessments = () =>
+  async (dispatch: Dispatch<any>): Promise<void> => {
+    try {
+      
+      const res = await api.auth.getAssessments()
+
+
+      dispatch(loadAssessmentSucess(res.data))
+      console.error(res.data)
+    } catch (e) {
+      console.error(e)
+
     }
   }
 

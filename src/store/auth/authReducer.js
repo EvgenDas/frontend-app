@@ -9,16 +9,46 @@ export interface AuthState {
     error:  string | null
   },
   profileData: {
-    profile: string[] | null,
+    id: number,
+    name: string,
+    surname: string,
+    managerId: number,
+    expertId: number,
+    dateOfNextAssessment: string,
+    login: string,
     isLoading: boolean,
     error:  string | null
+  },
+  assessmentData: {
+    data: []
   }
+    
 }
 
 export interface ProfilePayload {
   id: number,
   accessToken: string,
   refreshToken: string
+}
+
+export interface ProfileData {
+  id: number,
+  name: string,
+  surname: string,
+  managerId: number,
+  expertId: number,
+  dateOfNextAssessment: string,
+  login: string
+}
+
+export interface AssessmentData {
+  id: number,
+  ownAssessment: number,
+  expertAssessment: number,
+  managerAssessment: number,
+  finalAssessment: number,
+  dateOfAssessment: string,
+  active: boolean
 }
 
 const initialState: AuthState = {
@@ -30,9 +60,18 @@ const initialState: AuthState = {
     error:  null,
   },
   profileData: {
-    profile: null,
+    id: null,
+    name: null,
+    surname: null,
+    managerId: null,
+    expertId: null,
+    dateOfNextAssessment: null,
+    login: null,
     isLoading: false,
     error:  null,
+  },
+  assessmentData: {
+    data: []
   }
 }
 
@@ -48,8 +87,7 @@ export const authReducer = createSlice({
       }
     }),
 
-    loginSucess: (state, action: PayloadAction<ProfilePayload>):
-    AuthState => ({
+    loginSucess: (state, action: PayloadAction<ProfilePayload>): AuthState => ({
       
       ...state,
       authData: {
@@ -78,11 +116,17 @@ export const authReducer = createSlice({
         isLoading: true,
       }
     }),
-    loadProfileSucess: (state, action: PayloadAction<string[]>): AuthState => ({
+    loadProfileSucess: (state, action: PayloadAction<ProfileData>): AuthState => ({
       ...state,
       profileData: {
         ...state.profileData,
-        profile: action.payload,
+        id: action.payload.id,
+        name: action.payload.name,
+        surname: action.payload.surname,
+        managerId: action.payload.managerId,
+        expertId: action.payload.expertId,
+        dateOfNextAssessment: action.payload.dateOfNextAssessment,
+        login: action.payload.login,
         isLoading: false,
         error:  null,
       }
@@ -95,10 +139,19 @@ export const authReducer = createSlice({
         error:  action.payload,
       }
     }),
+    loadAssessmentSucess: (state, action: PayloadAction<[]>): AuthState => ({
+      ...state,
+      assessmentData: {
+        ...state.assessmentData,
+        data: action.payload,
+        isLoading: false,
+        error:  null,
+      }
+    }),
     logoutSuccess: (): AuthState => initialState,
   },
 })
 
-export const { loadProfileStart, loadProfileSucess, loadProfileFailure, loginStart, loginSucess, loginFailure, logoutSuccess } = authReducer.actions
+export const { loadProfileStart, loadProfileSucess, loadProfileFailure, loginStart, loginSucess, loginFailure, logoutSuccess, loadAssessmentSucess} = authReducer.actions
 
 export default authReducer.reducer

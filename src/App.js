@@ -7,7 +7,8 @@ import {
   Navigate,
 } from "react-router-dom";
 import Header from "./components/Header";
-import Dashboard from "./pages/Dashboard";
+import Assessments from "./pages/Assessments";
+import Staff from "./pages/Staff";
 import Main from "./pages/Main";
 import { IRootState, useAppDispatch } from "./store";
 import { getProfile } from "./store/auth/actionCreators";
@@ -29,8 +30,12 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />}/>
         <Route
-          path="/dashboard"
-          element={isLoggedIn ? <Dashboard /> : <Navigate to="/" />}
+          path="/assessments"
+          element={isLoggedIn ? <Assessments /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/staff"
+          element={isLoggedIn ? <Staff /> : <Navigate to="/" />}
         />
       </Routes>
     </Router>

@@ -11,7 +11,7 @@ export interface ILoginResponse {
     refreshToken: string
 }
 
-export interface IProfileResponce {
+export interface IProfileResponse {
   id: number,
   name: string,
   surname: string,
@@ -19,4 +19,14 @@ export interface IProfileResponce {
   expertId: number,
   dateOfNextAssessment: string,
   login: string
+}
+
+export interface IProfileAssessments {
+  id: number,
+  ownAssessment: number,
+  expertAssessment: number,
+  managerAssessment: number,
+  finalAssessment: number,
+  dateOfAssessment: string,
+  active: boolean
 }
