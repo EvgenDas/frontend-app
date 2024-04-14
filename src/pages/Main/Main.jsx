@@ -21,10 +21,9 @@ const Main = () => {
         <div>
           <div>Вы успешно авторизовались, {profile}</div>
           <button onClick={() => dispatch(logoutUser())}>Logout</button>
-          <button onClick={() => dispatch(getProfile())}>update profile</button>
           <div>
             <p></p>
-          {<Profile/>}
+          {<Profile />}
           </div>
         </div>
       );

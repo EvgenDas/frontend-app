@@ -21,7 +21,12 @@ const Header = () => {
         )}
         {isLoggedIn && (
           <li>
-            <Link to="/staff">Staff</Link>
+            <Link to="/staff/manager">Manager Staff</Link>
+          </li>
+        )}
+        {isLoggedIn && (
+          <li>
+            <Link to="/staff/expert">Expert Staff</Link>
           </li>
         )}
       </ul>

@@ -71,20 +71,7 @@ export const getProfile = () =>
     }
   }
 
-  export const getAssessments = () =>
-  async (dispatch: Dispatch<any>): Promise<void> => {
-    try {
-      
-      const res = await api.auth.getAssessments()
-
-
-      dispatch(loadAssessmentSucess(res.data))
-      console.error(res.data)
-    } catch (e) {
-      console.error(e)
-
-    }
-  }
+ 
 
   let refreshTokenRequest: AxiosPromise<ILoginResponse> | null = null
   
