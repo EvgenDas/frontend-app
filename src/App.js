@@ -13,6 +13,7 @@ import { IRootState, useAppDispatch } from "./store";
 import { getProfile } from "./store/auth/actionCreators";
 import ManagerStaff from "./pages/Main/components/ManagerStaff/ManagerStaff";
 import ExpertStaff from "./pages/Main/components/ExpertStaff/ExpertStaff";
+import UserDetails from "./pages/Main/components/UserDetails/UserDetails";
 
 function App() {
   const isLoggedIn = useSelector(
@@ -41,6 +42,10 @@ function App() {
         <Route
           path="/staff/expert"
           element={isLoggedIn ? <ExpertStaff /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/user"
+          element={isLoggedIn ? <UserDetails /> : <Navigate to="/" />}
         />
       </Routes>
     </Router>

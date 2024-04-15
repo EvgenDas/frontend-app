@@ -16,7 +16,7 @@ export const getManagerStaff = (): AxiosPromise<IProfileResponse> =>
 export const getExpertStaff = (): AxiosPromise<IProfileResponse> =>
     axiosInstance.get(Endpoints.AUTH.PROFILE + store.getState().auth.authData.id + '/staff/expertise')
 
-export const getAssessments = (): AxiosPromise<IProfileAssessments[]> =>
+export const getAssessments = (): AxiosPromise<IProfileAssessments> =>
     axiosInstance.get(Endpoints.AUTH.PROFILE + store.getState().auth.authData.id + '/assessments')
 
 export const refreshToken = (params: string): AxiosPromise<ILoginResponse> =>

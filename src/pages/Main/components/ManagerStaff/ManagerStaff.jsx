@@ -3,6 +3,8 @@ import axios from 'axios';
 import api from '../../../../api';
 
 
+
+
 const ManagerStaff = ({ userId }) => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -33,18 +35,26 @@ const ManagerStaff = ({ userId }) => {
 
   if (loading) return <div>Загрузка...</div>;
 
-  return (
+return (
     <div>
-      {userData && userData.length > 0 ? (
-        <ul>
-          {userData.map((user, index) => (
-            <li key={index}>
-              <h3>{user.login}</h3>
-              <p>Имя: {user.name}</p>
-              <p>Фамилия: {user.surname}</p>
-              <p>ID менеджера: {user.managerId}</p>
-              {/* Проверка и вывод активного подэлемента */}
-              {user.employeeAssessments ? (
+    {userData && userData.length > 0 ? (
+    <div style={{ padding: '20px' }}>
+      <h2>Список аттестаций</h2>
+      {userData.map(user => (
+        <div
+          key={user.id}
+          style={{
+            border: `3px solid orange`,
+            margin: '10px',
+            padding: '10px',
+            borderRadius: '5px'
+          }}
+        >
+          <h3>{user.login}</h3>
+          <p><strong>Имя: </strong> {user.name}</p>
+          <p><strong>Фамилия</strong> {user.surname}</p>
+          <p><strong>ID менеджера: </strong> {user.managerId}</p>
+          {user.employeeAssessments ? (
                 <div>
                   <h4>Дополнительная информация:</h4>
                   <p>Ваша оценка: {user.employeeAssessments.managerAssessment}</p>
@@ -52,10 +62,11 @@ const ManagerStaff = ({ userId }) => {
               ) : (
                 <p>Нет активных дополнительных данных.</p>
               )}
-            </li>
-          ))}
-        </ul>
-      ) : (
+        </div>
+        
+      ))}
+    </div>
+          ) : (
         <p>Аттестации не найдены.</p>
       )}
     </div>

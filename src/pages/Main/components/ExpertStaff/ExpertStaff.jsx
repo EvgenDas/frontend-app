@@ -32,19 +32,27 @@ const ExpertStaff = ({ userId }) => {
   }, [userId]);
 
   if (loading) return <div>Загрузка...</div>;
-
+  
   return (
     <div>
-      {userData && userData.length > 0 ? (
-        <ul>
-          {userData.map((user, index) => (
-            <li key={index}>
-              <h3>{user.login}</h3>
-              <p>Имя: {user.name}</p>
-              <p>Фамилия: {user.surname}</p>
-              <p>ID эксперта: {user.managerId}</p>
-              {/* Проверка и вывод активного подэлемента */}
-              {user.employeeAssessments ? (
+    {userData && userData.length > 0 ? (
+    <div style={{ padding: '20px' }}>
+      <h2>Список аттестаций</h2>
+      {userData.map(user => (
+        <div
+          key={user.id}
+          style={{
+            border: `3px solid blue`,
+            margin: '10px',
+            padding: '10px',
+            borderRadius: '5px'
+          }}
+        >
+          <h3>{user.login}</h3>
+          <p><strong>Имя: </strong> {user.name}</p>
+          <p><strong>Фамилия</strong> {user.surname}</p>
+          <p><strong>ID эксперта: </strong> {user.surname}</p>
+          {user.employeeAssessments ? (
                 <div>
                   <h4>Дополнительная информация:</h4>
                   <p>Ваша оценка: {user.employeeAssessments.expertAssessment}</p>
@@ -52,10 +60,10 @@ const ExpertStaff = ({ userId }) => {
               ) : (
                 <p>Нет активных дополнительных данных.</p>
               )}
-            </li>
-          ))}
-        </ul>
-      ) : (
+        </div>
+      ))}
+    </div>
+          ) : (
         <p>Аттестации не найдены.</p>
       )}
     </div>
