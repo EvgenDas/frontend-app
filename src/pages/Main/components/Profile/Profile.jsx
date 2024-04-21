@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'; // импортируем axios
 import api from '../../../../api';
 
 const Profile = ({ userId }) => {

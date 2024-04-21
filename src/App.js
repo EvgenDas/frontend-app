@@ -43,10 +43,6 @@ function App() {
           path="/staff/expert"
           element={isLoggedIn ? <ExpertStaff /> : <Navigate to="/" />}
         />
-        <Route
-          path="/user"
-          element={isLoggedIn ? <UserDetails /> : <Navigate to="/" />}
-        />
       </Routes>
     </Router>
   );

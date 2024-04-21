@@ -41,32 +41,17 @@ const Input = styled.input`
 
 // Modal.setAppElement('#root');
 
-function UserDetails({ userId }) {
+function UserDetails() {
   const [userData, setUserData] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [rating, setRating] = useState('');
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await api.auth.getManagerStaff()
-        setUserData(response.data);
-      } catch (error) {
-        setError(error.message);
-        console.error('There was an error!', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [userId]);
-
-  if (loading) return <p>Загрузка...</p>;
-  if (error) return <p>Ошибка загрузки аттестаций пользователя: {error}</p>;
+    api.auth.getManagerStaff()
+      .then(response => setUserData(response.data))
+      .catch(error => console.error('Error fetching data:', error));
+  }, []);
 
   const openModal = (user) => {
     setSelectedUser(user);
@@ -105,7 +90,7 @@ function UserDetails({ userId }) {
           {user.employeeAssessments ? (
                 <div>
                   <h4>Дополнительная информация:</h4>
-                  <span>Ваша оценка: {this.user.employeeAssessments.managerAssessment}</span>
+                  <span>Ваша оценка: {user.employeeAssessments.managerAssessment}</span>
                 </div>
               ) : (
                 <p>Нет активных дополнительных данных.</p>

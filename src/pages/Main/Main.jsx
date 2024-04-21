@@ -1,10 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { IRootState , useAppDispatch } from "../../store";
-import { getProfile, logoutUser } from "../../store/auth/actionCreators";
+import { logoutUser } from "../../store/auth/actionCreators";
 import Profile from "./components/Profile"
 import Login from "./components/Login";
-
 
 const Main = () => {
     const dispatch = useAppDispatch();
@@ -30,7 +29,6 @@ const Main = () => {
     
       return (
         <div>
-          <h1>Main</h1>
           {isLoggedIn ? renderProfile() : <Login />}
         </div>
       );

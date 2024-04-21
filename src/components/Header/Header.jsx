@@ -29,11 +29,6 @@ const Header = () => {
             <Link to="/staff/expert">Expert Staff</Link>
           </li>
         )}
-        {isLoggedIn && (
-          <li>
-            <Link to="/user">User Staff</Link>
-          </li>
-        )}
       </ul>
     </nav>
   );
